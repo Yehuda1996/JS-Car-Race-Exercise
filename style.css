@@ -75,6 +75,7 @@ body{
     border: 2px solid #3a5bb6ba;
     border-radius: 8px;
     position: relative;
+    height: 50px;
 }
 
 .lanes ::before{
@@ -89,6 +90,8 @@ body{
 .pics {
     width: 100px;
     height: auto;
+    left: 0;
+    position: absolute;
 }
 
 .refresh-button{
@@ -103,4 +106,44 @@ body{
 
 .refresh-button:hover{
     background-color: #0056b3;
+}
+
+.results {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    border: 2px solid #ddd;
+    width: 80%;
+    margin: 0 auto; 
+}
+
+.results div {
+    padding: 10px;
+    font-size: 1.2rem;
+    text-align: center;
+    margin: 5px 0;
+    border-radius: 5px;
+}
+
+.results div.result-1 {
+    background-color: #28a745; 
+    color: white;
+}
+
+.results div.result-2 {
+    background-color: #ffc107; 
+    color: white;
+}
+
+.results div.result-3 {
+    background-color: #ec9721; 
+    color: white;
+}
+
+.results div.result-4 {
+    background-color: #dc3545; 
+    color: white;
 }

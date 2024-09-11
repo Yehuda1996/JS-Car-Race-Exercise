@@ -66,13 +66,13 @@ function createRefreshBtn(){
         });
 }
 
-function moveCars(cars){
+function moveCars(cars) {
     const finishTimes = [];
     const carElements = [];
 
     cars.forEach((car, index) => {
         const carElement = document.querySelector(`.lane:nth-child(${index + 1}) .pics`);
-        carElement.style.left = '0';
+        carElement.style.left = '0px';
         carElements[index] = carElement;
         finishTimes[index] = null;
     });
@@ -81,17 +81,18 @@ function moveCars(cars){
         let allFinished = true;
 
         carElements.forEach((carElement, index) => {
-            const left = parseFloat(getComputedStyle(carElement).left);
+            const left = parseFloat(carElement.style.left);
             const laneWidth = lanesContainer.children[index].offsetWidth;
             const finishLine = laneWidth - carElement.offsetWidth;
 
             if (left < finishLine) {
-                carElement.style.left = `${left + 5}px`;
+                carElement.style.left = `${left + Math.random() * 5 + 1}px`;
                 allFinished = false;
             } else if (finishTimes[index] === null) {
                 finishTimes[index] = Date.now();
             }
         });
+
 
         if (allFinished) {
             clearInterval(interval);
@@ -108,11 +109,33 @@ function displayResults(finishTimes) {
 
     results.sort((a, b) => a.finishTime - b.finishTime);
 
+    let startTime
     resultsDiv.innerHTML = "";
-
     results.forEach((car, position) => {
-        const resultItem = document.createElement("div");
-        resultItem.textContent = `${position + 1} - ${car.Name}`;
-        resultsDiv.appendChild(resultItem);
+        if (car.finishTime !== null) {  
+            const timeTaken = ((car.finishTime - startTime) / 1000).toFixed(2); 
+
+            let placeText;
+            switch (position) {
+                case 0:
+                    placeText = "First place";
+                    break;
+                case 1:
+                    placeText = "Second place";
+                    break;
+                case 2:
+                    placeText = "Third place";
+                    break;
+                case 3:
+                    placeText = "Fourth place";
+                    break;
+            }
+
+            const resultItem = document.createElement("div");
+            resultItem.className = `result-${position + 1}`;
+            resultItem.textContent = `${placeText} - ${car.Name}: ${timeTaken} seconds`;
+            resultsDiv.appendChild(resultItem);
+        }
     });
 }
+
